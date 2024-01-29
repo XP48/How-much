@@ -31,10 +31,23 @@ body {
     align-items: center;
     margin: 5%;
     margin-top: 0;
+    margin-bottom: 3%;
 }
 .item {
     width: 30px;
     height: 30px;
     border: #333333;
     background-color: #414141;
+    border-radius: 5px;
+}
+#pickadate {
+    background-color: transparent;
+    border: none;
+    color: #f1f1f1;
+    outline: none;
+    font-family: monospace;
+    font-size: x-large;
+}
+#pickadate:hover {
+    cursor: text;
 }

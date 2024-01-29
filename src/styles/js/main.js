@@ -30,10 +30,10 @@ for(let i=0; i<=nbjours; i++) {
 title.textContent = annee;
 
 for (let i = 1; i <= getJoursPasses(tstpNow); i++) {
-    document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#dbdbdb';
+    document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
 }
 
-document.querySelector(`.grid :nth-child(${getJoursPasses(tstpNow)})`).style.backgroundColor = 'green';
+document.querySelector(`.grid :nth-child(${getJoursPasses(tstpNow)})`).style.backgroundColor = '#00aa00';
 
 document.addEventListener('DOMContentLoaded', function () {
     const pickadate = document.getElementById('pickadate');
