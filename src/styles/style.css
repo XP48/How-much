@@ -1,0 +1,27 @@
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: #2b2b2b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.grid {
+    display: grid;
+    grid-template-rows: repeat(20, 30px);
+    grid-template-columns: repeat(19, 30px);
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+.item {
+    width: 100%;
+    height: 100%;
+    border: #333333;
+    background-color: #414141;
+}
