@@ -5,9 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const date = new Date();
     const annee = date.getFullYear();
     const mois = date.getMonth();
+    const jour = date.getDate();
     const tstp01jan = new Date(annee, 0, 0).getTime();
     const tstpNow = date.getTime();
     const msInDay = 86400000;
+    const msInHour = 3600000;
     const DaysInWeek = 7;
     const HoursInDay = 24;
     const desc = document.querySelector('.desc');
@@ -34,9 +36,14 @@ document.addEventListener('DOMContentLoaded', function () {
         return(Math.floor((timestampDateFin - timestampDateDebut) / msInDay))
     }
 
+    function getHoursBetween(timestampDateFin, timestampDateDebut) {
+        return(Math.floor((timestampDateFin - timestampDateDebut) / msInHour))
+    }
+
     function clear(element) {
         element.innerHTML = '';
         marked = false;
+        desc.textContent = "Click on a case to mark it !";
     }
 
     function loadYear() {
@@ -61,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadMonth() {
 
         clear(grid);
-        let varDate = new Date(annee, 0, 1);
+        let varDate = new Date(annee, mois, 1);
         for(let i=1; i<=getNbJoursInMonth(mois); i++) {
             grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'medium' })}" class="item"></div>`;
             varDate.setDate(varDate.getDate()+1);
@@ -78,7 +85,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadWeek() {
 
         clear(grid);
-        let varDate = new Date(annee, 0, 1);
+        let varDate = new Date(annee, mois, jour);
+        while(varDate.getDay()!=1) varDate.setDate(varDate.getDate()-1);
+        console.log(varDate.getDate())
         for(let i=1; i<=DaysInWeek; i++) {
             grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'long' })}" class="item"></div>`;
             varDate.setDate(varDate.getDate()+1);
@@ -149,7 +158,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.target.style.backgroundColor = 'red';
                 marked = true;
                 let markedDate = new Date(event.target.title)
-                desc.textContent = `Marked case is in ${getJoursPasses(markedDate, date)} days !`
+                let diff = getJoursPasses(markedDate, date);
+                let unit = 'days';
+                if(diff < 1) {
+                    console.log(markedDate, diff, unit);
+                    diff = getHoursBetween(markedDate, date);
+                    unit = 'hours';
+                }
+                desc.textContent = `Marked case is in ${diff} ${unit} !`
             }
         }
     });

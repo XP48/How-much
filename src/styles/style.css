@@ -26,6 +26,7 @@ body {
     color: #f1f1f1;
     margin: 2%;
     text-align: center;
+    width: 350px;
 }
 .app {
     display: flex;
