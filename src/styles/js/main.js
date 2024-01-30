@@ -40,8 +40,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadYear() {
 
         clear(grid);
+        let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=getNbJoursInYear(annee); i++) {
-            grid.innerHTML += '<div class="item"></div>';
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'short' })}" class="item"></div>`;
+            varDate.setDate(varDate.getDate()+1);
         }
         
         title.textContent = annee;
@@ -57,10 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadMonth() {
 
         clear(grid);
+        let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=getNbJoursInMonth(mois); i++) {
-            grid.innerHTML += '<div class="item"></div>';
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'medium' })}" class="item"></div>`;
+            varDate.setDate(varDate.getDate()+1);
         }
-        title.textContent = date.toLocaleString('en-EN', { month: 'long'});
+        title.textContent = date.toLocaleString('en-US', { month: 'long'});
         const tstp01mois = new Date(annee, mois, 0).getTime();
 
         for (let i = 1; i <= getJoursPasses(tstpNow, tstp01mois); i++) {
@@ -72,8 +76,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadWeek() {
 
         clear(grid);
+        let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=DaysInWeek; i++) {
-            grid.innerHTML += '<div class="item"></div>';
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'long' })}" class="item"></div>`;
+            varDate.setDate(varDate.getDate()+1);
         }
         title.textContent = `Week`;
 
@@ -87,10 +93,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function loadDay() {
 
         clear(grid);
+        let varDate = new Date();
+        varDate.setHours(1);
         for(let i=1; i<=HoursInDay; i++) {
-            grid.innerHTML += '<div class="item"></div>';
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { hour: '2-digit' })}" class="item"></div>`;
+            varDate.setHours(varDate.getHours()+1);
         }
-        title.textContent = `${date.getDate()}/${date.getDay()}/${date.getFullYear()}`;
+        title.textContent = date.toLocaleString('en-US', { dateStyle: 'full' });
 
         for (let i = 1; i <= date.getHours(); i++) {
             document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
