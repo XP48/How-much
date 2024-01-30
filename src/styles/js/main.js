@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const tstp01jan = new Date(annee, 0, 0).getTime();
     const tstpNow = date.getTime();
     const msInDay = 86400000;
+    const DaysInWeek = 7;
+    const HoursInDay = 24;
 
 
     function getNbJoursInYear(annee) {
@@ -67,10 +69,42 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    function loadWeek() {
+
+        clear(grid);
+        for(let i=1; i<=DaysInWeek; i++) {
+            grid.innerHTML += '<div class="item"></div>';
+        }
+        title.textContent = `Week`;
+
+        for (let i = 1; i <= date.getDay(); i++) {
+            document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
+            document.querySelector(`.grid :nth-child(${date.getDay()})`).style.backgroundColor = '#00aa00';
+        }
+
+    }
+
+    function loadDay() {
+
+        clear(grid);
+        for(let i=1; i<=HoursInDay; i++) {
+            grid.innerHTML += '<div class="item"></div>';
+        }
+        title.textContent = `${date.getDate()}/${date.getDay()}/${date.getFullYear()}`;
+
+        for (let i = 1; i <= date.getHours(); i++) {
+            document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
+            document.querySelector(`.grid :nth-child(${date.getHours()})`).style.backgroundColor = '#00aa00';
+        }
+
+    }
+
 
     const year = document.getElementById('year');
     const month = document.getElementById('month');
-
+    const week = document.getElementById('week');
+    const day = document.getElementById('day');
+    
     year.addEventListener('change', function () {
         if(year.checked) loadYear();
     });
@@ -78,5 +112,14 @@ document.addEventListener('DOMContentLoaded', function () {
     month.addEventListener('change', function () {
         if(month.checked) loadMonth();
     });
+
+    week.addEventListener('change', function () {
+        if(week.checked) loadWeek();
+    })
+
+    day.addEventListener('change', function () {
+        if(day.checked) loadDay();
+    })
+    loadYear();
 
 });
