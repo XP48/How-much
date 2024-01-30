@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const msInDay = 86400000;
     const DaysInWeek = 7;
     const HoursInDay = 24;
+    const desc = document.querySelector('.desc');
 
 
     function getNbJoursInYear(annee) {
@@ -140,12 +141,15 @@ document.addEventListener('DOMContentLoaded', function () {
             if(event.target.style.backgroundColor == 'red') {
                 event.target.style.backgroundColor = preced;
                 marked = false;
+                desc.textContent = "Click on a case to mark it !"
             }
             else if(!marked) {
                 preced = event.target.style.backgroundColor;
                 if(!preced) preced = '#414141'
                 event.target.style.backgroundColor = 'red';
                 marked = true;
+                let markedDate = new Date(event.target.title)
+                desc.textContent = `Marked case is in ${getJoursPasses(markedDate, date)} days !`
             }
         }
     });
