@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function clear(element) {
         element.innerHTML = '';
-        marked = false;
         desc.textContent = "Click on a case to mark it !";
     }
 
@@ -51,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clear(grid);
         let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=getNbJoursInYear(annee); i++) {
-            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'short' })}" class="item" id="u"></div>`;
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'medium' })}" class="item" id="u"></div>`;
             varDate.setDate(varDate.getDate()+1);
         }
         
@@ -87,7 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
         clear(grid);
         let varDate = new Date(annee, mois, jour);
         while(varDate.getDay()!=1) varDate.setDate(varDate.getDate()-1);
-        console.log(varDate.getDate())
         for(let i=1; i<=DaysInWeek; i++) {
             grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'long' })}" class="item"></div>`;
             varDate.setDate(varDate.getDate()+1);
@@ -143,25 +141,21 @@ document.addEventListener('DOMContentLoaded', function () {
     
     
     let preced;
-    let marked = false;
 
     grid.addEventListener('click', function (event) {
         if (event.target.classList.contains('item') && event.target.style.backgroundColor != 'rgb(207, 207, 207)' && event.target.style.backgroundColor != 'rgb(0, 170, 0)') {
             if(event.target.style.backgroundColor == 'red') {
-                event.target.style.backgroundColor = preced;
-                marked = false;
+                preced.style.backgroundColor = '#414141';
                 desc.textContent = "Click on a case to mark it !"
             }
-            else if(!marked) {
-                preced = event.target.style.backgroundColor;
-                if(!preced) preced = '#414141'
+            else {
+                if(preced) preced.style.backgroundColor = '#414141';
+                preced = event.target;
                 event.target.style.backgroundColor = 'red';
-                marked = true;
                 let markedDate = new Date(event.target.title)
                 let diff = getJoursPasses(markedDate, date);
                 let unit = 'days';
                 if(diff < 1) {
-                    console.log(markedDate, diff, unit);
                     diff = getHoursBetween(markedDate, date);
                     unit = 'hours';
                 }
