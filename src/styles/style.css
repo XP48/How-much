@@ -15,7 +15,7 @@ body {
     align-items: center;
     flex-direction: column;
 }
-h1.year {
+.title {
     font-family: monospace;
     font-size: 300%;
     color: #f1f1f1;
