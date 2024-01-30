@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clear(grid);
         let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=getNbJoursInYear(annee); i++) {
-            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'short' })}" class="item"></div>`;
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'short' })}" class="item" id="u"></div>`;
             varDate.setDate(varDate.getDate()+1);
         }
         
@@ -117,18 +117,41 @@ document.addEventListener('DOMContentLoaded', function () {
     year.addEventListener('change', function () {
         if(year.checked) loadYear();
     });
-
+    
     month.addEventListener('change', function () {
         if(month.checked) loadMonth();
     });
-
+    
     week.addEventListener('change', function () {
         if(week.checked) loadWeek();
     })
-
+    
     day.addEventListener('change', function () {
         if(day.checked) loadDay();
     })
-    loadYear();
+    
+    
+    let preced;
+    let marked = false;
 
+    grid.addEventListener('click', function (event) {
+        if (event.target.classList.contains('item')) {
+            if(event.target.style.backgroundColor != 'red' && !marked) {
+                preced = event.target.style.backgroundColor;
+                if(!preced) preced = '#414141';
+                event.target.style.backgroundColor = 'red';
+                marked = true;
+            }
+            else {
+                if(event.target.style.backgroundColor == 'red') marked = false;
+                event.target.style.backgroundColor = preced;
+            }
+        }
+    });
+
+    
+    
+    
+    
+    loadYear();
 });
