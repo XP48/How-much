@@ -135,7 +135,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let marked = false;
 
     grid.addEventListener('click', function (event) {
-        if (event.target.classList.contains('item')) {
+        if (event.target.classList.contains('item') && event.target.style.backgroundColor != 'rgb(207, 207, 207)' && event.target.style.backgroundColor != 'rgb(0, 170, 0)') {
+            console.log(event.target.style.backgroundColor)
             if(event.target.style.backgroundColor == 'red') {
                 event.target.style.backgroundColor = preced;
                 marked = false;
