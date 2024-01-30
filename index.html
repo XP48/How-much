@@ -9,9 +9,30 @@
 <body>
     <div class="main">
         <h1 class="year"></h1>
-        <div class="grid">
+        <div class="app">
+            <div class="grid">
 
+            </div>
+            <div class="mode">
+                <div class="year">
+                    <label for="year">Year</label>
+                    <input type="radio" name="mode" id="year" checked>
+                </div>
+                <div class="month">
+                    <label for="month">Month</label>
+                    <input type="radio" name="mode" id="month">
+                </div>
+                <div class="week">
+                    <label for="week">Week</label>
+                    <input type="radio" name="mode" id="week">
+                </div>
+                <div class="day">
+                    <label for="day">Day</label>
+                    <input type="radio" name="mode" id="day">
+                </div>
+            </div>
         </div>
+        
         <input name="pickadate" type="date" id="pickadate">
     </div>
 </body>
