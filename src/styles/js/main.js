@@ -136,15 +136,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     grid.addEventListener('click', function (event) {
         if (event.target.classList.contains('item')) {
-            if(event.target.style.backgroundColor != 'red' && !marked) {
+            if(event.target.style.backgroundColor == 'red') {
+                event.target.style.backgroundColor = preced;
+                marked = false;
+            }
+            else if(!marked) {
                 preced = event.target.style.backgroundColor;
-                if(!preced) preced = '#414141';
+                if(!preced) preced = '#414141'
                 event.target.style.backgroundColor = 'red';
                 marked = true;
-            }
-            else {
-                if(event.target.style.backgroundColor == 'red') marked = false;
-                event.target.style.backgroundColor = preced;
             }
         }
     });
