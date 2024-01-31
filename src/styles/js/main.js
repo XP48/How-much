@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function clear(element) {
         element.innerHTML = '';
-        desc.textContent = "Click on a case to mark it !";
+        desc.textContent = "Click on a gray box to mark it !";
     }
 
     function loadYear() {
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (event.target.classList.contains('item') && event.target.style.backgroundColor != 'rgb(207, 207, 207)' && event.target.style.backgroundColor != 'rgb(0, 170, 0)') {
             if(event.target.style.backgroundColor == 'red') {
                 preced.style.backgroundColor = '#414141';
-                desc.textContent = "Click on a case to mark it !"
+                desc.textContent = "Click on a gray box to mark it !"
             }
             else {
                 if(preced) preced.style.backgroundColor = '#414141';
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     diff = getHoursBetween(markedDate, date);
                     unit = 'hours';
                 }
-                desc.textContent = `Marked case is in ${diff} ${unit} !`
+                desc.textContent = `Marked box is in ${diff} ${unit} !`
             }
         }
     });
