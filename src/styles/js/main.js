@@ -146,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function () {
             grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { year: 'numeric' })}" class="itemMM"></div>`;
             varDate.setFullYear(varDate.getFullYear()+1);
         }
+        
         title.textContent = 'Memento mori';
         for (let i = 1; i <= getYearsBetween(date, birthdate); i++) {
             document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
