@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const DaysInWeek = 7;
     const HoursInDay = 24;
     const desc = document.querySelector('.desc');
+    const esperVie = 80;
 
 
     function getNbJoursInYear(annee) {
@@ -37,7 +38,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function getHoursBetween(timestampDateFin, timestampDateDebut) {
-        return(Math.floor((timestampDateFin - timestampDateDebut) / msInHour))
+        result = ((timestampDateFin - timestampDateDebut) / msInHour).toFixed(1);
+        if (result == Math.floor(result)) result = Math.floor(result);
+        return result;
+    }
+
+    function getYearsBetween(DateFin, DateDebut) {
+        return(DateFin.getFullYear() - DateDebut.getFullYear())
     }
 
     function clear(element) {
@@ -50,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clear(grid);
         let varDate = new Date(annee, 0, 1);
         for(let i=1; i<=getNbJoursInYear(annee); i++) {
-            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'medium' })}" class="item" id="u"></div>`;
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { dateStyle: 'medium' })}" class="item"></div>`;
             varDate.setDate(varDate.getDate()+1);
         }
         
@@ -112,16 +119,47 @@ document.addEventListener('DOMContentLoaded', function () {
 
         for (let i = 1; i <= date.getHours(); i++) {
             document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
-            document.querySelector(`.grid :nth-child(${date.getHours()})`).style.backgroundColor = '#00aa00';
         }
+        document.querySelector(`.grid :nth-child(${date.getHours()})`).style.backgroundColor = '#00aa00';
 
     }
 
+    function requestMementoMori() {
 
+        clear(grid);
+        title.textContent = 'When are you born ?'
+        desc.innerHTML = `<p class="info">Type your birthdate :</p><input type="date" id="dateInput" name="dateInput" max="${date.toISOString().split('T')[0]}" required>`;
+        // Gestion du memento mori
+        const dateInput = document.getElementById('dateInput')
+        dateInput.addEventListener('change', function () {
+            const birthdate = new Date(dateInput.value);
+            loadMementoMori(birthdate);
+        });
+        
+
+    }
+
+    function loadMementoMori(birthdate) {
+        grid.innerHTML = ''
+        let varDate = new Date(birthdate)
+        for(let i=1; i<=esperVie; i++) {
+            grid.innerHTML += `<div title="${varDate.toLocaleString('en-US', { year: 'numeric' })}" class="itemMM"></div>`;
+            varDate.setFullYear(varDate.getFullYear()+1);
+        }
+        title.textContent = 'Memento mori';
+        for (let i = 1; i <= getYearsBetween(date, birthdate); i++) {
+            document.querySelector(`.grid :nth-child(${i})`).style.backgroundColor = '#cfcfcf';
+        }
+        document.querySelector(`.grid :nth-child(${getYearsBetween(date, birthdate)+1})`).style.backgroundColor = '#00aa00';
+    }
+
+
+    // Gestion du changement de mode
     const year = document.getElementById('year');
     const month = document.getElementById('month');
     const week = document.getElementById('week');
     const day = document.getElementById('day');
+    const mementomori = document.getElementById('mementomori');
     
     year.addEventListener('change', function () {
         if(year.checked) loadYear();
@@ -138,10 +176,15 @@ document.addEventListener('DOMContentLoaded', function () {
     day.addEventListener('change', function () {
         if(day.checked) loadDay();
     })
+
+    mementomori.addEventListener('change', function () {
+        if(mementomori.checked) requestMementoMori();
+    })
     
     
     let preced;
 
+    // Gestion du marquage des cases
     grid.addEventListener('click', function (event) {
         if (event.target.classList.contains('item') && event.target.style.backgroundColor != 'rgb(207, 207, 207)' && event.target.style.backgroundColor != 'rgb(0, 170, 0)') {
             if(event.target.style.backgroundColor == 'red') {
@@ -153,6 +196,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 preced = event.target;
                 event.target.style.backgroundColor = 'red';
                 let markedDate = new Date(event.target.title)
+                if(markedDate == 'Invalid Date') {
+                    markedDate = new Date();
+                    markedDate.setHours(event.target.title)   
+                    console.log(markedDate)
+                }
                 let diff = getJoursPasses(markedDate, date);
                 let unit = 'days';
                 if(diff < 1) {
@@ -166,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     
     
-    
-    
+
     loadYear();
+    
 });
