@@ -207,7 +207,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 if(diff < 1) {
                     diff = getHoursBetween(markedDate, date);
                     unit = 'hours';
+                    if(diff<=1) unit = 'hour';
                 }
+                else if(diff == 1) unit = 'day'
                 desc.textContent = `Marked box is in ${diff} ${unit} !`
             }
         }
