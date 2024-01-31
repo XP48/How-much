@@ -94,7 +94,7 @@ body {
     border: #f1f1f1 solid 1px;
     border-radius: 20px;
     min-width: 20px;
-    height: 20px;
+    min-height: 20px;
     font-size: 20px;
 }
 .mode input[type="radio"]:checked {
