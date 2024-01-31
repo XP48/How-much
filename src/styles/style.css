@@ -20,6 +20,7 @@ body {
     font-size: 300%;
     color: #f1f1f1;
     text-align: center;
+    margin: 2.5%;
 }
 .desc {
     font-family: monospace;
@@ -114,6 +115,11 @@ body {
     font-family: monospace;
     font-size: x-large;
     padding-bottom: 2px;
-    border-bottom: 2px solid #757575;
+    border: 2px solid #c1c1c1;
+    padding: 2%;
+    border-radius: 20px;
     margin: 5%;
+}
+#dateInput:hover {
+    cursor: pointer;
 }
